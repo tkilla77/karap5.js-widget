@@ -46,6 +46,10 @@ function p5url(version: string) {
   return `//cdnjs.cloudflare.com/ajax/libs/p5.js/${version}/p5.js`;
 }
 
+function karaP5url() {
+  return `//tkilla77.github.io/kara5js/kara.js`;
+}
+
 function LoopChecker(sketch: string, funcName: string, maxRunTime: number) {
   let self = {
     wasTriggered: false,
@@ -119,6 +123,7 @@ function startSketch(sketch: string, p5version: string, maxRunTime: number,
 
   loadScripts([
     p5url(p5version),
+    karaP5url(),
   ], () => {
     document.body.appendChild(sketchScript);
     if (document.readyState === 'complete') {
