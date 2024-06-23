@@ -1,9 +1,7 @@
-[![Build Status](https://travis-ci.org/toolness/p5.js-widget.svg?branch=master)](https://travis-ci.org/toolness/p5.js-widget)
-
 This is a widget to make it easier to embed editable
 p5 sketches in blog posts, interactive curricula, and other places.
 
-For more information on its usage, please see the [website][].
+For more information on its usage, please see the [website][]. All of this is a quick hack based on [toolness' js-widget](https://toolness.github.io/p5.js-widget/).
 
 The rest of this documentation is about *developing* p5.js-widget,
 not using it.
@@ -11,8 +9,8 @@ not using it.
 ## Quick Start
 
 ```
-git clone https://github.com/toolness/p5.js-widget.git
-cd p5.js-widget
+git clone https://github.com/tkilla77/karap5.js-widget.git
+cd karap5.js-widget
 npm install
 npm start
 ```
@@ -53,7 +51,8 @@ of plugins:
 The test suite can be run on the development server at
 http://localhost:8080/test/, or on the command-line with `npm test`.
 
-[website]: https://toolness.github.io/p5.js-widget/
+[website]: https://tkilla77.github.io/karap5.js-widget/
+[original]: https://toolness.github.io/p5.js-widget/
 [TypeScript]: http://typescriptlang.org/
 [React]: http://facebook.github.io/react/
 [JSX]: https://facebook.github.io/react/docs/jsx-in-depth.html
