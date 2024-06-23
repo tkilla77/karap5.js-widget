@@ -40,7 +40,10 @@
 
 <p>
   The script will then automatically transform all script tags of
-  type <code>text/p5</code> on the page into editable widgets, like so:
+  type <code>text/p5</code> on the page into editable widgets.
+</p>
+<p>
+  Kara-specific setup (top-level calls to <code>KaraWorld.create</code>) and processing <code>setup</code> and <code>draw</code> functions are hidden from the user.
 </p>
 
 <script type="text/p5">
@@ -72,10 +75,23 @@ KaraWorld.create(
 </p>
 
 <script type="text/p5" data-autoplay>
-function setup() {
-  createCanvas(100, 100);
-  background(255, 0, 200);
+function my_kara(kara) {
+  kara.move();      // move straight ahead.
+  kara.move();
+  kara.turnRight(); // turn left (or right)
+  kara.move();
+  kara.putLeaf();   // plant a leaf
 }
+KaraWorld.create(
+  `TTTTTTTTT
+    T >     T
+    T       T
+    T  MM   T
+    T  MM   T
+    T       T
+    T       T
+    T       T
+    TTTTTTTTT`);
 </script>
 
 <h2 id="autosave">Autosave</h2>
@@ -119,12 +135,24 @@ function setup() {
 <p>
   It can be quite difficult for beginners to understand the
   concept (and syntax) of functions, so the widget will automatically
-  wrap the user's code in a <code>setup()</code> function declaration
+  wrap the user's code in a <code>my_kara(kara)</code> function declaration
   behind the scenes if needed:
 </p>
 
 <script type="text/p5" data-autoplay>
-background(255, 0, 200);
+kara.move();
+kara.turnRight();
+kara.move();
+KaraWorld.create(
+  `TTTTTTTTT
+    T >     T
+    T       T
+    T  MM   T
+    T  MM   T
+    T       T
+    T       T
+    T       T
+    TTTTTTTTT`);
 </script>
 
 <h2 id="error-handling">Error Handling</h2>

@@ -4,8 +4,28 @@ import esprima = require("esprima");
  * Recombines hidden and visible code artifacts.
  */
 export function preparePreviewCode(hiddenCode: string, editorContent: string) {
-    // TODO: add implicit my_kara function around editor content
+    if (isFunctionlessToplevelCode(editorContent)) {
+        editorContent = `function my_kara(kara) {\n ${editorContent} \n}`;
+    }
     return hiddenCode + '\n\n' + editorContent;
+}
+
+function isFunctionlessToplevelCode(code: string) {
+    let ast: ESTree.Program;
+
+    try {
+      ast = esprima.parse(code);
+    } catch (e) {
+      return code;
+    }
+  
+    for (let i = 0; i < ast.body.length; i++) {
+      let statement = ast.body[i];
+      if (isWellknownProcessingFunction(statement, ['my_kara'])) {
+        return false;
+      }
+    }
+    return true;
 }
 
 /**
@@ -17,24 +37,29 @@ export function preparePreviewCode(hiddenCode: string, editorContent: string) {
  */
 export function splitHiddenKaraCode(code: string) {
     let ast: ESTree.Program;
-
+    
     try {
-      ast = esprima.parse(code, {range: true});
+        ast = esprima.parse(code, { range: true });
     } catch (e) {
-      return {hidden: "", visible: code};
+        return { hidden: '', visible: code };
     }
-  
+    
+    let hidden = "";
+    let visible = "";
+    let start = 0;
     for (let i = 0; i < ast.body.length; i++) {
-      let statement = ast.body[i];
-      console.log(`Visiting ${statement.type}`)
-      if (isKaraWorldCreation(statement)) {
-        let range = statement.range;
-        let visible = code.slice(0, range[0]) + code.slice(range[1], code.length);
-        let hidden = code.slice(...range);
-        return {hidden: hidden, visible: visible};
-      }
+        let statement = ast.body[i];
+        if (isKaraWorldCreation(statement) || isWellknownProcessingFunction(statement)) {
+            let range = statement.range;
+            let visibleBlock = code.slice(start, range[0]);
+            let hiddenBlock = code.slice(...range);
+            start = range[1];
+            visible += `${visibleBlock}\n`;
+            hidden += `${hiddenBlock}\n`;
+        }
     }
-    return {hidden: "", visible: code};
+    visible += code.slice(start, code.length);
+    return { hidden: hidden, visible: visible };
 }
 
 
@@ -59,4 +84,31 @@ function isKaraWorldCreation(node: ESTree.Expression) {
             return isKaraWorldCreation((node as ESTree.ExpressionStatement).expression);
     }
     return false;
+}
+
+function isWellknownProcessingFunction(statement: ESTree.Expression, names=['draw', 'setup']) {
+    if (statement.type === esprima.Syntax.FunctionDeclaration) {
+        let funcDecl = statement as ESTree.FunctionDeclaration;
+
+        if (names.includes(funcDecl.id.name)) {
+            return true;
+        }
+    }
+
+    if (statement.type === esprima.Syntax.VariableDeclaration) {
+        let varDecl = statement as ESTree.VariableDeclaration;
+
+        for (let j = 0; j < varDecl.declarations.length; j++) {
+            // This is a bit odd because our ESTree typings indicate
+            // that a VariableDeclarator.id is a Pattern, but it
+            // seems to actually be an Identifier, so we'll forcibly
+            // typecast it as such.
+            let id = varDecl.declarations[j].id as ESTree.Identifier;
+
+            if (names.includes(id.name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
