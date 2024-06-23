@@ -1,7 +1,9 @@
 node_modules
+dist
 *.bundle.js
 *.bundle.js.map
 p5-widget.js
 p5-widget.js.map
 website
 static/.DS_Store
+.DS_Store

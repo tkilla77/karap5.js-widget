@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 var production = process.env.NODE_ENV === 'production';
 
@@ -48,8 +49,21 @@ var baseConfig = {
         compress: {
           warnings: false
         }
-      })
-    ] : []
+      }),
+      new CopyWebpackPlugin({
+          patterns: [
+              { from: 'static', to: 'dist/'},
+              { from: '*.html', to: 'dist/'},
+          ]
+      }),
+    ] : [
+      new CopyWebpackPlugin({
+        patterns: [
+            { from: 'static', to: 'static'},
+            { from: '*.html', to: '.'},
+        ]
+      }),
+    ]
   ),
 };
 
@@ -72,7 +86,6 @@ module.exports = configurations({
     static: {
       directory: '.',
     },
-    compress: true,
   },
 },
 {
