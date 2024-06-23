@@ -8,9 +8,6 @@ var baseConfig = {
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
-    fallback: {
-      'url': false,
-    },
   },
   devtool: 'source-map',
   module: {
@@ -70,7 +67,13 @@ module.exports = configurations({
   },
   output: {
     filename: '[name].bundle.js'
-  }
+  },
+  devServer: {
+    static: {
+      directory: '.',
+    },
+    compress: true,
+  },
 },
 {
   // The p5-widget.js file is directly referenced by widget embedders, so
