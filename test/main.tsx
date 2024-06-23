@@ -1,6 +1,6 @@
 /// <reference path="../typings/mocha.d.ts" />
 
-mocha.setup('bdd');
+//mocha.setup();
 
 import "./test-loop-inserter";
 import "./test-implicit-sketch";

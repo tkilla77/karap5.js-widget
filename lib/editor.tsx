@@ -23,7 +23,7 @@ interface State {
 
 export default class Editor extends PureComponent<Props, State> {
   _cm: CodeMirror.Editor
-  _resizeTimeout: number
+  _resizeTimeout: NodeJS.Timeout
   _errorLineHandle: any
 
   componentDidUpdate(prevProps: Props) {

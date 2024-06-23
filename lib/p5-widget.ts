@@ -154,7 +154,7 @@ function replaceScriptWithWidget(el: HTMLScriptElement) {
 function whenVisible(el: HTMLScriptElement,
                      cb: (el: HTMLScriptElement) => void) {
   let CHECK_INTERVAL_MS = 1000;
-  let interval: number;
+  let interval: NodeJS.Timeout;
 
   function maybeMakeVisible() {
     if (!isElementInViewport(el)) return;

@@ -7,7 +7,7 @@ import * as defaults from "./defaults";
 import { SessionStorageAutosaver } from "./autosaver";
 import App from "./app";
 
-let defaultSketchJS = require("raw!./default-sketch.js") as string;
+let defaultSketchJS = require("raw-loader!./default-sketch.js") as string;
 
 require("../node_modules/codemirror/lib/codemirror.css");
 require("../css/style.css");
@@ -17,12 +17,12 @@ function start() {
   let embeddingPageURL = document.referrer;
   let qs = url.parse(window.location.search, true).query;
   let id = embeddingPageURL + '_' + qs['id'];
-  let baseSketchURL = qs['baseSketchURL'] || embeddingPageURL;
+  let baseSketchURL = qs['baseSketchURL'] as string || embeddingPageURL;
   let autoplay = (qs['autoplay'] === 'on');
-  let initialContent = qs['sketch'] || defaultSketchJS;
-  let p5version = qs['p5version'] || defaults.P5_VERSION;
-  let previewWidth = parseInt(qs['previewWidth']);
-  let maxRunTime = parseInt(qs['maxRunTime'])
+  let initialContent = qs['sketch'] as string || defaultSketchJS;
+  let p5version = qs['p5version'] as string || defaults.P5_VERSION;
+  let previewWidth = parseInt(qs['previewWidth'] as string);
+  let maxRunTime = parseInt(qs['maxRunTime'] as string)
   if (isNaN(previewWidth)) {
     previewWidth = defaults.PREVIEW_WIDTH;
   }

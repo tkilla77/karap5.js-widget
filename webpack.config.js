@@ -4,20 +4,45 @@ var webpack = require('webpack');
 var production = process.env.NODE_ENV === 'production';
 
 var baseConfig = {
+  mode: production ? 'production' : 'development',
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js']
+    extensions: ['', '.webpack.js', '.web.js', '.ts', '.tsx', '.js'],
+    fallback: {
+      'url': false,
+    },
   },
   devtool: 'source-map',
   module: {
-    loaders: [
-      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
-      { test: /\.tsx?$/, loader: 'ts-loader' },
+    rules: [
+      {
+        // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+        test: /\.tsx?$/,
+        use: [
+          { loader: 'ts-loader' },
+        ],
+      },
       {
         test: /\.css$/,
-        loaders: ["style", "css?sourceMap", "postcss?sourceMap"]
-      }
-    ]
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              sourceMap: true,
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
   ].concat(
@@ -29,10 +54,6 @@ var baseConfig = {
       })
     ] : []
   ),
-  postcss: function () {
-    return [require('autoprefixer'),
-            require('postcss-custom-properties')];
-  }
 };
 
 var configurations = function() {
