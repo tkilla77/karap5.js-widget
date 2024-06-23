@@ -104,7 +104,11 @@ export default class App extends PureComponent<AppProps, AppState> {
   }
 
   handleStopClick = () => {
-    this.setState({ isPlaying: false });
+    this.setState((prevState, props) => ({
+      isPlaying: false,
+      previewContent: prevState.hiddenContent,
+      startPlayTimestamp: Date.now()
+    }));
   }
 
   handleUndoClick = () => {
@@ -151,7 +155,13 @@ export default class App extends PureComponent<AppProps, AppState> {
                        width={this.props.previewWidth}
                        timestamp={this.state.startPlayTimestamp}
                        onError={this.handlePreviewError} />
-            : null}
+            : <Preview content={this.state.hiddenContent}
+                       baseSketchURL={this.props.baseSketchURL}
+                       p5version={this.props.p5version}
+                       maxRunTime={this.props.maxRunTime}
+                       width={this.props.previewWidth}
+                       timestamp={this.state.startPlayTimestamp}
+                       onError={this.handlePreviewError} />}
           </div>
         </div>
         <div className="status-bar">

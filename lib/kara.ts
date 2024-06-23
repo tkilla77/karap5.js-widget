@@ -7,7 +7,7 @@ export function preparePreviewCode(hiddenCode: string, editorContent: string) {
     if (isFunctionlessToplevelCode(editorContent)) {
         editorContent = `function my_kara(kara) {\n ${editorContent} \n}`;
     }
-    return hiddenCode + '\n\n' + editorContent;
+    return editorContent + '\n\n' + hiddenCode;
 }
 
 function isFunctionlessToplevelCode(code: string) {
