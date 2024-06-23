@@ -5,7 +5,7 @@ import esprima = require("esprima");
  */
 export function preparePreviewCode(hiddenCode: string, editorContent: string) {
     if (isFunctionlessToplevelCode(editorContent)) {
-        editorContent = `function my_kara(kara) {\n ${editorContent} \n}`;
+        editorContent = `function my_kara(kara) { ${editorContent} }`;
     }
     return editorContent + '\n\n' + hiddenCode;
 }
