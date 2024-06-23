@@ -1,5 +1,5 @@
 import React = require("react");
-import ReactDOM = require("react-dom");
+import ReactDOM = require("react-dom/client");
 
 import url = require("url");
 
@@ -32,16 +32,16 @@ function start() {
   }
 
   initialContent = initialContent.replace(/\r\n/g, '\n').trim();
-
-  ReactDOM.render(
+  const container = document.getElementById('app-holder');
+  const root = ReactDOM.createRoot(container!);
+  root.render(
     <App initialContent={initialContent}
          autosaver={new SessionStorageAutosaver(id)}
          baseSketchURL={baseSketchURL}
          p5version={p5version}
          previewWidth={previewWidth}
          maxRunTime={maxRunTime}
-         autoplay={autoplay} />,
-    document.getElementById('app-holder')
+         autoplay={autoplay} />
   );
 }
 
