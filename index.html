@@ -44,13 +44,24 @@
 </p>
 
 <script type="text/p5">
-function setup() {
-  createCanvas(100, 100);
+function my_kara(kara) {
+  kara.move();      // move straight ahead.
+  kara.move();
+  kara.turnRight(); // turn left (or right)
+  kara.move();
+  kara.putLeaf();   // plant a leaf
 }
 
-function draw() {
-  background(255, 0, 200);
-}
+KaraWorld.create(
+  `TTTTTTTTT
+   T >     T
+   T       T
+   T  MM   T
+   T  MM   T
+   T       T
+   T       T
+   T       T
+   TTTTTTTTT`);
 </script>
 
 <h2 id="autoplay">Autoplay</h2>

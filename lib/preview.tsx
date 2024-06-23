@@ -28,7 +28,8 @@ export default class Preview extends PureComponent<Props, State> {
   resetIframe() {
     let content = this.props.content;
 
-    content = makeImplicitSketch(content);
+    // FIXME: reintroduce implicit function for function-less Kara code.
+    // content = makeImplicitSketch(content);
 
     try {
       content = falafel(content, {}, LoopInserter(function(node) {

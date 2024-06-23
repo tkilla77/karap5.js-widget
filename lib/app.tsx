@@ -4,6 +4,7 @@ import PureComponent from "./pure-component";
 import Toolbar from "./toolbar";
 import Editor from "./editor";
 import Preview from "./preview";
+import { splitHiddenKaraCode, preparePreviewCode } from "./kara";
 import { Autosaver } from "./autosaver";
 
 interface ErrorMessage {
@@ -31,8 +32,9 @@ interface AppState {
   canRedo?: boolean,
   isPlaying?: boolean
   startPlayTimestamp?: number
-  previewContent?: string
-  editorContent?: string
+  previewContent?: string // JS code sent to the preview
+  editorContent?: string  // JS code shown in the editor (with hidden content removed, and possibly the main function omitted)
+  hiddenContent?: string  // JS content hidden from the editor (e.g. Kara world definition)
   lastError?: ErrorMessage
 }
 
@@ -46,11 +48,13 @@ let ErrorMessage = (props: ErrorMessage) => (
 export default class App extends PureComponent<AppProps, AppState> {
   constructor(props) {
     super(props);
+    let splitCode = splitHiddenKaraCode(this.props.initialContent);
     this.state = {
       canUndo: false,
       canRedo: false,
-      previewContent: this.props.initialContent,
-      editorContent: this.props.initialContent
+      hiddenContent: splitCode.hidden,
+      previewContent: preparePreviewCode(splitCode.hidden, splitCode.visible),
+      editorContent: splitCode.visible
     };
   }
 
@@ -86,14 +90,14 @@ export default class App extends PureComponent<AppProps, AppState> {
   handleRevertClick = () => {
     this.setState({
       isPlaying: false,
-      editorContent: this.props.initialContent
+      editorContent: splitHiddenKaraCode(this.props.initialContent).visible
     });
   }
 
   handlePlayClick = () => {
     this.setState((prevState, props) => ({
       isPlaying: true,
-      previewContent: prevState.editorContent,
+      previewContent: preparePreviewCode(prevState.hiddenContent, prevState.editorContent),
       startPlayTimestamp: Date.now(),
       lastError: null
     }));
@@ -118,10 +122,10 @@ export default class App extends PureComponent<AppProps, AppState> {
 
   render() {
     let errorLine = null;
-    let canRevert = (this.state.editorContent !== this.props.initialContent);
+    let canRevert = (this.state.editorContent !== splitHiddenKaraCode(this.props.initialContent).visible);
 
     if (this.state.lastError &&
-        this.state.editorContent === this.state.previewContent) {
+        preparePreviewCode(this.state.hiddenContent, this.state.editorContent) == this.state.previewContent) {
       errorLine = this.state.lastError.line;
     }
 
