@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  font-family: Georgia, serif;
+  font-family: system-ui;
   max-width: 740px;
   margin: 0 auto;
 }
