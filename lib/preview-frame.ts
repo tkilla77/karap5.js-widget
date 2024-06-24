@@ -116,7 +116,7 @@ function startSketch(sketch: string, p5version: string, maxRunTime: number,
 
     // p5 sketches don't actually stop looping if they throw an exception,
     // so try to stop the sketch.
-    try { global.noLoop(); } catch (e) {}
+    // try { global.noLoop(); } catch (e) {}
 
     errorCb(message, line);
   });
