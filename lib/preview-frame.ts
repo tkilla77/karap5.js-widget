@@ -47,7 +47,7 @@ function p5url(version: string) {
 }
 
 function karaP5url() {
-  return `//tkilla77.github.io/kara5js/kara.js`;
+  return `./kara.js`;
 }
 
 function LoopChecker(sketch: string, funcName: string, maxRunTime: number) {

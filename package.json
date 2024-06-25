@@ -34,8 +34,8 @@
   },
   "scripts": {
     "test": "webpack && mocha-phantomjs test/index.html",
-    "bundle": "webpack --mode=production",
-    "start": "webpack-dev-server --host 0.0.0.0",
+    "bundle": "webpack --mode=production --node-env production",
+    "start": "webpack-dev-server --host 0.0.0.0  --mode=development --node-env development",
     "deploy": "gh-pages -d dist"
   },
   "repository": {
