@@ -17,6 +17,9 @@ var baseConfig = {
         // Serve kara.js as is
         test: /kara\.js$/,
         type: 'asset/resource',
+        generator: {
+          filename: 'mykara.js',
+        }
       },
       {
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
@@ -91,7 +94,7 @@ module.exports = configurations({
   // we want the filename and path to be as simple as possible.
   entry: './lib/kara.js',
   output: {
-    assetModuleFilename: 'kara.js',
+    assetModuleFilename: 'mykara.js',
   },
   plugins: [],
 });

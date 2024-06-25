@@ -1,6 +1,7 @@
 import * as PreviewFrame from "./preview-frame-interface";
 
 require("../css/preview-frame.css");
+let karajs = require("./kara.js") as string;
 
 interface PreviewFrameWindow extends PreviewFrame.Runner {
   // This is exported by p5 when it's in global mode.
@@ -47,7 +48,7 @@ function p5url(version: string) {
 }
 
 function karaP5url() {
-  return `./kara.js`;
+  return karajs;
 }
 
 function LoopChecker(sketch: string, funcName: string, maxRunTime: number) {
