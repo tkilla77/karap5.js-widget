@@ -1,8 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2022",
     "sourceMap": true,
-    "jsx": "react"
+    "jsx": "react",
+    "moduleResolution": "NodeNext",
+    "module": "NodeNext",
+    "useDefineForClassFields": false,
   },
   "files": [
     "typings/custom.d.ts",
@@ -22,7 +25,7 @@
     "lib/preview-frame.ts",
     "lib/preview-frame-interface.ts",
     "lib/falafel.ts",
-    "lib/kara.ts",
+    "lib/kara_fix.ts",
     "lib/implicit-sketch.ts",
     "lib/loop-inserter.ts",
     "lib/main.tsx",

@@ -1,6 +1,6 @@
 /// <reference path="../typings/mocha.d.ts" />
 
-import chai = require("chai"); let expect = chai.expect;
+import * as chai from "chai"; let expect = chai.expect;
 
 import LoopInserter from "../lib/loop-inserter";
 import falafel from "../lib/falafel";

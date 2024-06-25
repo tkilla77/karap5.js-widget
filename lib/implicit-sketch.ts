@@ -1,4 +1,4 @@
-import esprima = require("esprima");
+import * as esprima from "esprima";
 
 export default function makeImplicitSketch(code: string) {
   let ast: ESTree.Program;

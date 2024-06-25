@@ -1,5 +1,5 @@
-import React = require("react");
-import PureRenderMixin = require('react-addons-pure-render-mixin');
+import * as React from "react";
+import * as PureRenderMixin from 'react-addons-pure-render-mixin';
 
 export default class PureComponent<P, S> extends React.Component<P, S> {
   shouldComponentUpdate() {

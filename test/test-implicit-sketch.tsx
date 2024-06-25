@@ -1,6 +1,6 @@
 /// <reference path="../typings/mocha.d.ts" />
 
-import chai = require("chai"); let expect = chai.expect;
+import * as chai from "chai"; let expect = chai.expect;
 
 import makeImplicitSketch from "../lib/implicit-sketch";
 

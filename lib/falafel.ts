@@ -1,9 +1,7 @@
 // This is an older version of falafel that used esprima instead of acorn.
 // Taken from https://github.com/toolness/slowmo-js.
 
-import esprima = require('esprima');
-
-let parse = esprima.parse;
+import {parse} from 'esprima';
 
 export default function (src, opts, fn) {
     if (typeof opts === 'function') {

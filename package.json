@@ -8,6 +8,7 @@
     "codemirror": "^5.13.4",
     "css-loader": "^7.1.2",
     "esprima": "^4.0.1",
+    "file-loader": "^6.2.0",
     "npm": "^10.8.1",
     "postcss": "^8.4.38",
     "postcss-custom-properties": "^13.3.10",

@@ -14,14 +14,6 @@ var baseConfig = {
   module: {
     rules: [
       {
-        // Serve kara.js as is
-        test: /kara\.js$/,
-        type: 'asset/resource',
-        generator: {
-          filename: 'mykara.js',
-        }
-      },
-      {
         // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
         test: /\.tsx?$/,
         use: [
@@ -89,12 +81,4 @@ module.exports = configurations({
     filename: 'p5-widget.js'
   }
 },
-{
-  // The kara.js file is directly referenced by widget embedders, so
-  // we want the filename and path to be as simple as possible.
-  entry: './lib/kara.js',
-  output: {
-    assetModuleFilename: 'mykara.js',
-  },
-  plugins: [],
-});
+);

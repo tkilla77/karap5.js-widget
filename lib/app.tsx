@@ -4,7 +4,7 @@ import PureComponent from "./pure-component";
 import Toolbar from "./toolbar";
 import Editor from "./editor";
 import Preview from "./preview";
-import { splitHiddenKaraCode, preparePreviewCode } from "./kara";
+import { splitHiddenKaraCode, preparePreviewCode } from "./kara_fix";
 import { Autosaver } from "./autosaver";
 
 interface ErrorMessage {

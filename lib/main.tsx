@@ -1,7 +1,7 @@
-import React = require("react");
-import ReactDOM = require("react-dom/client");
+import * as React from "react";
+import { createRoot } from 'react-dom/client';
 
-import url = require("url");
+import * as url from "url";
 
 import * as defaults from "./defaults";
 import { SessionStorageAutosaver } from "./autosaver";
@@ -33,7 +33,7 @@ function start() {
 
   initialContent = initialContent.replace(/\r\n/g, '\n').trim();
   const container = document.getElementById('app-holder');
-  const root = ReactDOM.createRoot(container!);
+  const root = createRoot(container!);
   root.render(
     <App initialContent={initialContent}
          autosaver={new SessionStorageAutosaver(id)}

@@ -1,4 +1,4 @@
-import esprima = require("esprima");
+import * as esprima from "esprima";
 
 /**
  * Recombines hidden and visible code artifacts.
