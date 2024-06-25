@@ -79,7 +79,7 @@ function isKaraWorldCreation(node: ESTree.Expression) {
         case esprima.Syntax.CallExpression:
             return isKaraWorldCreation((node as ESTree.CallExpression).callee);
         case esprima.Syntax.VariableDeclaration:
-            return isKaraWorldCreation((node as ESTree.VariableDeclaration).declarations[0]);
+            return isKaraWorldCreation((node as ESTree.VariableDeclaration).declarations[0].init);
         case esprima.Syntax.ExpressionStatement:
             return isKaraWorldCreation((node as ESTree.ExpressionStatement).expression);
     }
