@@ -1,8 +1,8 @@
 {
-  "name": "p5.js-widget",
+  "name": "karap5.js-widget",
   "version": "0.0.1",
-  "description": "Embeddable widget for p5.js sketches",
-  "main": "bundle.js",
+  "description": "Embeddable widget for Kara programs on top of p5.js",
+  "main": "main.bundle.js",
   "dependencies": {
     "autoprefixer": "^10.4.19",
     "codemirror": "^5.13.4",
