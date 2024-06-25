@@ -104,11 +104,19 @@ function startSketch(sketch: string, p5version: string, maxRunTime: number,
 
   global.addEventListener('error', (e: ErrorEvent) => {
     let message = e.message;
+    if (e.error) {
+      message = e.error.message;
+    }
     let line = undefined;
 
     if (loopChecker.wasTriggered) {
       message = "Your loop is taking too long to run.";
       line = loopChecker.getLineNumber();
+    } else if (e.error && e.error.stack) {
+      let match = e.error.stack.match(/my_kara \(<anonymous>:(\d+):\d+\)/)
+      if (match && match.length > 1) {
+        line = parseInt(match[1]);
+      }
     } else if (typeof(e.lineno) === 'number' &&
               (e.filename === '' || e.filename === window.location.href)) {
       line = e.lineno;
@@ -119,6 +127,10 @@ function startSketch(sketch: string, p5version: string, maxRunTime: number,
     // try { global.noLoop(); } catch (e) {}
 
     errorCb(message, line);
+  });
+
+  global.addEventListener('unhandledrejection', (e: PromiseRejectionEvent) => {
+    reportError(e.reason);
   });
 
   loadScripts([
