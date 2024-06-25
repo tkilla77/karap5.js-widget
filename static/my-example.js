@@ -1,1 +1,1 @@
-function setup(){createCanvas(300,100),background(255,0,200)}
+kara.move(),kara.turnRight(),kara.move(),KaraWorld.create("TTTTTTTTT\n   T >     T\n   T       T\n   T  MM   T\n   T  MM   T\n   T       T\n   T       T\n   T       T\n   TTTTTTTTT");
