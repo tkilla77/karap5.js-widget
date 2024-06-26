@@ -1,4 +1,5 @@
 import * as PreviewFrame from "./preview-frame-interface";
+import * as karajs from "./kara";
 
 import "../css/preview-frame.css";
 
@@ -46,10 +47,6 @@ function p5url(version: string) {
   return `//cdnjs.cloudflare.com/ajax/libs/p5.js/${version}/p5.js`;
 }
 
-function karaP5url() {
-  return `//tkilla77.github.io/kara5js/kara.js`;
-}
-
 function LoopChecker(sketch: string, funcName: string, maxRunTime: number) {
   let self = {
     wasTriggered: false,
@@ -88,6 +85,15 @@ function setBaseURL(url: string) {
   base.setAttribute('href', url);
 
   document.head.appendChild(base);
+}
+
+/** Add kara.js exports as globals so they are available
+ * in client scripts / sketches. */
+function addKaraGlobals() {
+  for (let symbol of Object.keys(karajs)) {
+    console.log(`Adding ${symbol} to globals`);
+    global[symbol] = karajs[symbol];
+  }
 }
 
 function startSketch(sketch: string, p5version: string, maxRunTime: number,
@@ -135,8 +141,8 @@ function startSketch(sketch: string, p5version: string, maxRunTime: number,
 
   loadScripts([
     p5url(p5version),
-    karaP5url(),
   ], () => {
+    addKaraGlobals();
     document.body.appendChild(sketchScript);
     if (document.readyState === 'complete') {
       new global.p5();
