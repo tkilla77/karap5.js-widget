@@ -91,7 +91,6 @@ function setBaseURL(url: string) {
  * in client scripts / sketches. */
 function addKaraGlobals() {
   for (let symbol of Object.keys(karajs)) {
-    console.log(`Adding ${symbol} to globals`);
     global[symbol] = karajs[symbol];
   }
 }
