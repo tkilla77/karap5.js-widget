@@ -44,7 +44,10 @@ function loadScripts(urls: string[], cb?: () => void) {
 }
 
 function p5url(version: string) {
-  return `//cdnjs.cloudflare.com/ajax/libs/p5.js/${version}/p5.js`;
+  return [
+    `//cdnjs.cloudflare.com/ajax/libs/p5.js/${version}/p5.js`,
+    `//cdnjs.cloudflare.com/ajax/libs/p5.js/${version}/addons/p5.sound.min.js`,
+  ];
 }
 
 function LoopChecker(sketch: string, funcName: string, maxRunTime: number) {
@@ -138,9 +141,8 @@ function startSketch(sketch: string, p5version: string, maxRunTime: number,
     reportError(e.reason);
   });
 
-  loadScripts([
-    p5url(p5version),
-  ], () => {
+  loadScripts(
+    p5url(p5version), () => {
     addKaraGlobals();
     document.body.appendChild(sketchScript);
     if (document.readyState === 'complete') {
