@@ -266,7 +266,7 @@ while (!kara.mushroomFront()) {
     }
 }
 
-let game = KaraWorld.create(
+let game = KaraWorld.fromOptions(
     `TTTTTTTTTTTTTTTTTT
      T>               T
      TTTTTTTTTTTTTTTT T
@@ -283,18 +283,11 @@ let game = KaraWorld.create(
      T                T
      TTTTTTTT TTTTTTTTT
      T                T
-     TTTTTTTTTTTTMTTTTT`, 25, false, true);
-
-function setup() {
-  let size = game.grid.gridSize();
-  createCanvas(size.x * 25, size.y * 25);
-  // 100ms delay, up to 200 commands
-  game.executeKara(100, 'my_kara', 300);
-}
-
-function draw() {
-  game.draw(25);
-}
+     TTTTTTTTTTTTMTTTTT`, {
+      keyhandler: false,
+      delay_ms: 100,
+      max_commands: 300,
+    });
 </script>
 
 <h2 id="specifying-p5-version">Specifying The p5 Version</h2>
