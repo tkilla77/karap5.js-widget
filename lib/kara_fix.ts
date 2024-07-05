@@ -72,10 +72,12 @@ export function splitHiddenKaraCode(code: string) {
  * @returns true if node represents a top-level KaraWorld.create call
  */
 function isKaraWorldCreation(node: ESTree.Expression) {
+    const creationNames = ['create', 'fromOptions', 'fromGridSpec']
     switch (node.type) {
         case esprima.Syntax.MemberExpression:
             let memberExpr = node as ESTree.MemberExpression;
-            return memberExpr.object['name'] == 'KaraWorld' && memberExpr.property['name'] == 'create';
+            return memberExpr.object['name'] == 'KaraWorld'
+                 && creationNames.includes(memberExpr.property['name']);
         case esprima.Syntax.CallExpression:
             return isKaraWorldCreation((node as ESTree.CallExpression).callee);
         case esprima.Syntax.VariableDeclaration:
